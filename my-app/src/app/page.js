@@ -80,13 +80,13 @@ export default function Home() {
       {toggles.getAllQs && <AllQsComp allQs={allQs}></AllQsComp>}
       
       <Heading headingName={"Get Question By ID"}onClick ={()=> {changeToggles("getQById")}}></Heading>
-      <div className="flex">
+      {toggles.getQById && <div className="flex">
         {allQs.data?.map((question) => (
                       <div key={question.Id} className="p-2 border rounded-md shadow-md">
                         <button onClick={() => chooseId(question.Id)}>{question.Id}</button>
                       </div>
                   ))}
-      </div>
+      </div>}
       
       {toggles.getQById && <QByIdComp qById={qById}></QByIdComp>}
       
