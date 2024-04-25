@@ -27,18 +27,26 @@ export default function Home() {
   const [updatedQById, setUpdatedQById] = useState("Fetching question to update by ID ... ");
   const [deletedQById, setDeletedQById] = useState("Fetching question to delete by ID ... ");
 
-  useEffect(() => {
+
+  function getAndSetAllQs() {
     getAllQs()
     .then(data => {
       setAllQs(data); // Set the fetched message to the state
       // console.log(data)
     });
-    getQByID("1")
-      .then(data => {
-        setQById(data)
-        // console.log(data)
-        console.log("hi")
-      });
+  }
+  function getAndSetQById(id) {
+    getQByID(id)
+    .then(data => {
+      setQById(data)
+      // console.log(data)
+    });
+  }
+
+  
+  useEffect(() => {
+    getAndSetAllQs();
+    getAndSetQById(0);
     updateQByID("1")
       .then(data => {
         setUpdatedQById(data)
@@ -58,7 +66,11 @@ export default function Home() {
         ...prev,
         [toggleToChange]: !prev[toggleToChange]
     }));
-}
+  }
+
+  function chooseId(id) {
+    getAndSetQById(id)
+  }
 
   return (
     <main className="">
@@ -68,6 +80,14 @@ export default function Home() {
       {toggles.getAllQs && <AllQsComp allQs={allQs}></AllQsComp>}
       
       <Heading headingName={"Get Question By ID"}onClick ={()=> {changeToggles("getQById")}}></Heading>
+      <div className="flex">
+        {allQs.data?.map((question) => (
+                      <div key={question.Id} className="p-2 border rounded-md shadow-md">
+                        <button onClick={() => chooseId(question.Id)}>{question.Id}</button>
+                      </div>
+                  ))}
+      </div>
+      
       {toggles.getQById && <QByIdComp qById={qById}></QByIdComp>}
       
       <Heading headingName={"Update Question By ID"} onClick ={()=> {changeToggles("updateQById")}}></Heading>

@@ -8,8 +8,8 @@ export async function getAllQs (){
     return fetchObject;
 }
 
-export async function getQByID (){
-  const fetchObject = await fetch('https://js-api-hbsc.onrender.com/api/quiz')
+export async function getQByID (id){
+  const fetchObject = await fetch(`https://js-api-hbsc.onrender.com/api/quiz/${id}`)
   .then(response => response.json())
   .then(json => {
       console.log("getQById: " + JSON.stringify(json));
