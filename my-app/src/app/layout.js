@@ -6,6 +6,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Quiz Rest API",
   description: "Quiz API",
+  icons: {
+    icon: '../favicon.ico', // /public path
+    }
+    
+  
 };
 
 export default function RootLayout({ children }) {
