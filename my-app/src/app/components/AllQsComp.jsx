@@ -1,4 +1,5 @@
 "use client"
+import Question from "./Question";
 
 export default function AllQsComp({ allQs }) {
     if (!allQs.data) {
@@ -10,14 +11,9 @@ export default function AllQsComp({ allQs }) {
             <div className="p-4 bg-blue-200">
                 <div className="text-lg font-bold mb-4">Fetch status: {allQs.message}</div>
                 <div className="grid gap-4">
-                    {allQs.data.map((question) => (
-                        <div key={question.Id} className="p-4 border rounded-md shadow-md">
-                            <h3 className="text-xl font-bold mb-2">{question.Question}</h3>
-                            <p className="mb-1">Answer A: {question['Answer A']}</p>
-                            <p className="mb-1">Answer B: {question['Answer B']}</p>
-                            <p className="mb-1">True Answer: {question['True Answer']}</p>
-                        </div>
-                    ))}
+                    {allQs.data.map((question) => 
+                        (<Question questiontype="getAllQuestions" questionData={question} key={question.Id} />)
+                    )}
                 </div>
             </div>
         </>
