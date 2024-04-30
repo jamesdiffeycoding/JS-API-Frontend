@@ -12,7 +12,7 @@ import AllQsComp from "./components/AllQsComp";
 import QByIdComp from "./components/QByIdComp";
 import UpdateQByIdComp from "./components/UpdateQByIdComp";
 import DeleteQByIdComp from "./components/DeleteQByIdComp";
-import { getAllQs, getQByID, updateQByID, deleteQById } from "./helperFunctions";
+import { getAllQs, getQByID, deleteQById } from "./helperFunctions";
 
 
 export default function Home() {
@@ -47,12 +47,12 @@ export default function Home() {
   useEffect(() => {
     getAndSetAllQs();
     getAndSetQById(0);
-    updateQByID("1")
-      .then(data => {
-        setUpdatedQById(data)
-        // console.log(data)
-        console.log("hi")
-      });
+    // updateQByID("1")
+    //   .then(data => {
+    //     setUpdatedQById(data)
+    //     // console.log(data)
+    //     console.log("hi")
+    //   });
     deleteQById("1")
       .then(data => {
         setDeletedQById(data)
