@@ -20,22 +20,22 @@ export async function getQByID (id){
   return fetchObject;
 }
 
-// export async function updateQByID (newQuestion, id){
-//     const fetchObject = await fetch(`https://js-api-hbsc.onrender.com/api/quiz/${id}`,
-//     {
-//         headers: {
-//         'Content-Type': 'application/json'
-//         },
-//         method: "PATCH",
-//         body: JSON.stringify(newQuestion)}
-//     )
-//     .then(response => response.json())
-//     .then(json => {
-//         console.log("updateQById: " + JSON.stringify(json));
-//         return json; // Return the JSON data to be used in the next .then()
-//     });
-//     return fetchObject;
-//   }
+export async function updateQByID (newQuestion, id){
+    const fetchObject = await fetch(`https://js-api-hbsc.onrender.com/api/quiz/${id}`,
+    {
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        method: "PATCH",
+        body: JSON.stringify(newQuestion)}
+    )
+    .then(response => response.json())
+    .then(json => {
+        console.log("updateQById: " + JSON.stringify(json));
+        return json; // Return the JSON data to be used in the next .then()
+    });
+    return fetchObject;
+  }
   
 
   export async function deleteQById (id){
