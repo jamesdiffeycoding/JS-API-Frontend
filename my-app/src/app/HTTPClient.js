@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class HTTPClient {
+export default class HTTPClient {
   constructor() {
     this.client = axios.create({
       baseURL: "http://localhost:3000",
@@ -23,6 +23,7 @@ class HTTPClient {
         return "500 error";
     }
   }
+
   async getbyID(path, id) {
     if (!path) {
       throw new Error("Path is required");
@@ -42,13 +43,34 @@ class HTTPClient {
     }
   }
 
-  async post(path, data) {
-    const response = await this.client.post(path, data);
-    return response.data;
-  }
 
-  async patch(path, data) {
-    const response = await this.client.patch(path, data);
-    return response.data;
-  }
+  async patch(path, data, id) {
+      try {
+          const response = await this.client.patch(path, data, id);
+          return response.data;
+        } catch (err) {
+            console.error(`An error occurred while making a PATCH request to ${path}:`, err);
+            throw err; 
+        }
+    }
+
+    async delete(path, id) {        
+        try {
+            const response = await this.client.delete(`${path}/${id}`);
+            return response.data;
+        } catch (err) {
+            console.error(`An error occurred while making a DELETE request to ${path}:`, err);
+            throw err; 
+        }
+    }
+
+    async post(path, data) {
+      try {
+        const response = await this.client.post(path, data);
+        return response.data;
+      } catch (err) {
+        console.error(`An error occurred while making a POST request to ${path}:`, err);
+        throw err; 
+      }
+    }
 }

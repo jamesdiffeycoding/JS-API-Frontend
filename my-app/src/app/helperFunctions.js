@@ -1,4 +1,4 @@
-// import axios from "axios";
+import HTTPClient from "./HTTPClient";
 
 export async function getAllQs() {
   let fetchObject = [];
