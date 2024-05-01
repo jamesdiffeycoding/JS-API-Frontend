@@ -30,6 +30,7 @@ export default function UpdateForm({ questionData, updateQDisplay }) {
       </label>
       <input
         type="text"
+        id="Question"
         placeholder={questionData.Question}
         className="p-1 rounded-md border border-zinc-700 mb-2"
         {...register("Question")}
@@ -39,6 +40,7 @@ export default function UpdateForm({ questionData, updateQDisplay }) {
       </label>
       <input
         type="text"
+        id="AnswerA"
         placeholder={questionData.AnswerA}
         className="p-1 rounded-md border border-zinc-700 mb-2"
         {...register("AnswerA", {
@@ -51,6 +53,7 @@ export default function UpdateForm({ questionData, updateQDisplay }) {
       </label>
       <input
         type="text"
+        id="AnswerB"
         placeholder={questionData.AnswerB}
         className="p-1 rounded-md border border-zinc-700 mb-2"
         {...register("AnswerB", {
