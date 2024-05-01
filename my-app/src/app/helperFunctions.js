@@ -1,59 +1,114 @@
-// import { headers } from "next/headers";
+// import axios from "axios";
 
-export async function getAllQs (){
-    const fetchObject = await fetch('https://js-api-hbsc.onrender.com/api/quiz')
-    .then(response => response.json())
-    .then(json => {
-        console.log("getAllQs: " + JSON.stringify(json));
-        return json; // Return the JSON data to be used in the next .then()
-    });
-    return fetchObject;
-}
+export async function getAllQs() {
+  let fetchObject = [];
+  try {
+    const response = await fetch("https://js-api-hbsc.onrender.com/api/quiz");
 
-export async function getQByID (id){
-  const fetchObject = await fetch(`https://js-api-hbsc.onrender.com/api/quiz/${id}`)
-  .then(response => response.json())
-  .then(json => {
-      console.log("getQById: " + JSON.stringify(json));
-      return json; // Return the JSON data to be used in the next .then()
-  });
+    if (!response.ok) {
+      throw new Error(`An error occurred: ${response.status}`);
+    }
+
+    fetchObject = await response.json();
+    console.log("getAllQs: " + JSON.stringify(fetchObject));
+  } catch (error) {
+    console.error("An error occurred while fetching all questions:", error);
+  }
+
+  if (
+    fetchObject === undefined ||
+    fetchObject.length === 0 ||
+    fetchObject === null
+  ) {
+    return [];
+  }
   return fetchObject;
 }
 
-export async function updateQByID (newQuestion, id){
-    const fetchObject = await fetch(`https://js-api-hbsc.onrender.com/api/quiz/${id}`,
-    {
+
+export async function getQByID(id) {
+    try {
+      const response = await fetch(`https://js-api-hbsc.onrender.com/api/quiz/${id}`);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const json = await response.json();
+      console.log("getQById: " + JSON.stringify(json));
+  
+      if (json === undefined || json.length === 0 || json === null) {
+        return [];
+      }
+  
+      return json;
+    } catch (error) {
+      console.error("An error occurred while fetching the question:", error);
+      return [];
+    }
+  }
+
+
+export async function updateQByID(newQuestion, id) {
+  try {
+    const response = await fetch(
+      `https://js-api-hbsc.onrender.com/api/quiz/${id}`,
+      {
         headers: {
-        'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         method: "PATCH",
-        body: JSON.stringify(newQuestion)}
-    )
-    .then(response => response.json())
-    .then(json => {
-        console.log("updateQById: " + JSON.stringify(json));
-        return json; // Return the JSON data to be used in the next .then()
-    });
-    return fetchObject;
-  }
-  
+        body: JSON.stringify(newQuestion),
+      }
+    );
 
-  export async function deleteQById (id){
-    const fetchObject = await fetch(`https://js-api-hbsc.onrender.com/api/quiz/${id}`,
-        {
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            method: "DELETE",
-        }
-    )
-    .then(response => response.json())
-    .then(json => {
-        console.log("delete question " + id);
-        // console.log("deleteQById: " + JSON.stringify(json));
-        return json; // Return the JSON data to be used in the next .then()
-    });
-    return fetchObject;
+    if (!response.ok) {
+      throw new Error(`An error occurred: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("An error occurred while updating the question:", error);
+    return [];
   }
+  if (response.status === 404) {
+    return { message: "404 error", status: response.status };
+  }
+  if (response.status === 500) {
+    return { message: "500 error", status: response.status };
+  }
+  const json = await response.json();
+  console.log("updateQById: " + JSON.stringify(json));
+  return json;
+}
+
+
+export async function deleteQById(id) {
+    try {
+      const response = await fetch(
+        `https://js-api-hbsc.onrender.com/api/quiz/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "DELETE",
+        }
+      );
   
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
   
+      const json = await response.json();
+  
+      if (response.status === 404) {
+        return { message: "404 error", status: response.status };
+      }
+      if (response.status === 500) {
+        return { message: "500 error", status: response.status };
+      }
+  
+      console.log("delete question " + id);
+      return json;
+    } catch (error) {
+      console.error("An error occurred while deleting the question:", error);
+    }
+  }

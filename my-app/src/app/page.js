@@ -13,6 +13,7 @@ import QByIdComp from "./components/QByIdComp";
 import UpdateQByIdComp from "./components/UpdateQByIdComp";
 import DeleteQByIdComp from "./components/DeleteQByIdComp";
 import { getAllQs, getQByID, updateQByID, deleteQById } from "./helperFunctions";
+import { get } from "react-hook-form";
 
 
 export default function Home() {
@@ -54,7 +55,8 @@ export default function Home() {
         // console.log(data)
         // console.log("hi")
       });
-    deleteQById("1")
+    // deleteQById("1")
+      getAllQs()
       .then(data => {
         setDeletedQById(data)
         // console.log(data)
